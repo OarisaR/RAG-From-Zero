@@ -1,14 +1,15 @@
-# RAG From Zero 
+# RAG From Zero
 
 ![LangChain](https://img.shields.io/badge/LangChain-0.1-blue?logo=chainlink)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-0.4-orange)
 ![Groq](https://img.shields.io/badge/Groq-LLaMA3-purple)
 ![HuggingFace](https://img.shields.io/badge/HuggingFace-SentenceTransformers-yellow?logo=huggingface)
+![LlamaParse](https://img.shields.io/badge/LlamaParse-PDF%20Parsing-red)
 ![Python](https://img.shields.io/badge/Python-3.10+-green?logo=python)
 ![Colab](https://img.shields.io/badge/Google%20Colab-Notebook-orange?logo=googlecolab)
 
-Learning Retrieval-Augmented Generation by building every component 
-
+Learning Retrieval-Augmented Generation by building every component
+from scratch — no shortcuts, no copy-paste.
 
 ---
 
@@ -31,6 +32,16 @@ Rebuilt the same pipeline using LangChain:
 - LangChain LCEL chain connecting everything
 - Tested on real documents — Wikipedia pages and PDFs
 
+### `PDFs are Hard LlamaParse Isn't.ipynb`
+Rebuilt the chain specifically for PDFs using LlamaParse:
+- `LlamaParse` for clean, structured PDF parsing
+- Handles multi-column layouts, tables, and citations properly
+- Converts LlamaIndex documents to LangChain format
+- `RecursiveCharacterTextSplitter` for chunking clean markdown
+- `Chroma` vector store with `HuggingFaceEmbeddings`
+- Tested on a real NLP research paper (PsyDef Dataset Paper)
+- Learned why table reasoning is hard for small LLMs
+
 ---
 
 ## Stack
@@ -41,18 +52,29 @@ Rebuilt the same pipeline using LangChain:
 | Vector DB | ChromaDB |
 | LLM | LLaMA 3 via Groq |
 | Framework | LangChain |
-| PDF Loader | PyPDF |
+| PDF Loader | LlamaParse |
 | Web Loader | LangChain WebBaseLoader |
 | Environment | Google Colab |
 
 ---
 
 ## What I Learned
-- How embeddings capture meaning, not just keywords
-- Why chunking strategy affects retrieval quality
-- How cosine similarity powers semantic search
-- Why PDF parsing is harder than it looks in production
-- How LangChain abstracts the same components I built manually
+- Embeddings capture **meaning**, not just keywords — semantically 
+  similar sentences produce similar vectors even with different words
+- Chunking strategy directly affects retrieval quality — too small 
+  loses context, too large loses precision
+- Cosine similarity is the math powering semantic search under the hood
+- LangChain abstracts every component I built manually — knowing 
+  the internals makes debugging infinitely easier
+- Prompt engineering significantly affects answer quality — 
+  telling the LLM *how* to reason matters as much as giving it context
+- PDFs are a display format, not a text format — they're designed 
+  to look good, not to be machine-readable. Basic parsers get confused 
+  by tables, multi-column layouts and figures because they read 
+  left-to-right across everything. LlamaParse uses an LLM to 
+  understand layout before extracting, which is why it works so much better
 
 ---
 
+## Status
+🔨 Work in progress — adding notebooks as I learn
